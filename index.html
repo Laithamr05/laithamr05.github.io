@@ -521,11 +521,155 @@
             color: var(--text-secondary);
             font-family: 'JetBrains Mono', monospace;
             transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
         }
 
         .skill-tag:hover {
             background: var(--accent-primary);
             color: var(--bg-deep);
+            transform: translateY(-2px);
+        }
+
+        .skill-tag.active {
+            background: var(--accent-primary);
+            color: var(--bg-deep);
+        }
+
+        /* Proficiency Modal */
+        .proficiency-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 15, 0.9);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .proficiency-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .proficiency-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            transform: scale(0.8) translateY(20px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .proficiency-modal.active .proficiency-card {
+            transform: scale(1) translateY(0);
+        }
+
+        .proficiency-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: var(--bg-elevated);
+            border-radius: 50%;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .proficiency-close:hover {
+            background: var(--accent-tertiary);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .proficiency-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--accent-primary);
+        }
+
+        .proficiency-category {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .proficiency-bar-container {
+            background: var(--bg-elevated);
+            border-radius: 12px;
+            height: 24px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .proficiency-bar {
+            height: 100%;
+            border-radius: 12px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            width: 0%;
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+        }
+
+        .proficiency-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .proficiency-percent {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--bg-deep);
+            position: relative;
+            z-index: 1;
+        }
+
+        .proficiency-level {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .proficiency-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
         }
 
         /* Projects Section */
@@ -911,47 +1055,47 @@
                     <div class="skill-icon">🧠</div>
                     <h3>AI & Machine Learning</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">PyTorch</span>
-                        <span class="skill-tag">TensorFlow</span>
-                        <span class="skill-tag">Keras</span>
-                        <span class="skill-tag">CNNs</span>
-                        <span class="skill-tag">Transfer Learning</span>
-                        <span class="skill-tag">Computer Vision</span>
+                        <span class="skill-tag" data-skill="PyTorch" data-level="80" data-cat="AI & Machine Learning" data-desc="Deep learning framework for building neural networks. Experienced with CNN architectures, transfer learning, and model training.">PyTorch</span>
+                        <span class="skill-tag" data-skill="TensorFlow" data-level="75" data-cat="AI & Machine Learning" data-desc="End-to-end ML platform. Proficient in building and training deep learning models for image classification.">TensorFlow</span>
+                        <span class="skill-tag" data-skill="Keras" data-level="85" data-cat="AI & Machine Learning" data-desc="High-level neural network API. Extensively used for rapid prototyping and building image classifiers.">Keras</span>
+                        <span class="skill-tag" data-skill="CNNs" data-level="80" data-cat="AI & Machine Learning" data-desc="Convolutional Neural Networks for image recognition. Built multiple classifiers using ResNet, VGG16, and AlexNet.">CNNs</span>
+                        <span class="skill-tag" data-skill="Transfer Learning" data-level="85" data-cat="AI & Machine Learning" data-desc="Leveraging pre-trained models for new tasks. Applied in multiple projects for efficient model training.">Transfer Learning</span>
+                        <span class="skill-tag" data-skill="Computer Vision" data-level="75" data-cat="AI & Machine Learning" data-desc="Image processing and analysis. Experience with classification, object detection, and image preprocessing.">Computer Vision</span>
                     </div>
                 </div>
                 <div class="skill-category reveal">
                     <div class="skill-icon">⚡</div>
                     <h3>Backend Development</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">Node.js</span>
-                        <span class="skill-tag">Express</span>
-                        <span class="skill-tag">PostgreSQL</span>
-                        <span class="skill-tag">REST APIs</span>
-                        <span class="skill-tag">JWT Auth</span>
-                        <span class="skill-tag">TypeScript</span>
+                        <span class="skill-tag" data-skill="Node.js" data-level="85" data-cat="Backend Development" data-desc="Server-side JavaScript runtime. Built multiple RESTful APIs and backend services.">Node.js</span>
+                        <span class="skill-tag" data-skill="Express" data-level="85" data-cat="Backend Development" data-desc="Web application framework for Node.js. Proficient in routing, middleware, and API development.">Express</span>
+                        <span class="skill-tag" data-skill="PostgreSQL" data-level="80" data-cat="Backend Development" data-desc="Relational database management. Experienced with complex queries, migrations, and database design.">PostgreSQL</span>
+                        <span class="skill-tag" data-skill="REST APIs" data-level="90" data-cat="Backend Development" data-desc="RESTful API design and implementation. Built production-ready APIs with proper authentication and error handling.">REST APIs</span>
+                        <span class="skill-tag" data-skill="JWT Auth" data-level="85" data-cat="Backend Development" data-desc="JSON Web Token authentication. Implemented secure user authentication in multiple projects.">JWT Auth</span>
+                        <span class="skill-tag" data-skill="TypeScript" data-level="85" data-cat="Backend Development" data-desc="Typed superset of JavaScript. Used extensively for building type-safe applications.">TypeScript</span>
                     </div>
                 </div>
                 <div class="skill-category reveal">
                     <div class="skill-icon">🎨</div>
                     <h3>Frontend Development</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">Angular</span>
-                        <span class="skill-tag">TypeScript</span>
-                        <span class="skill-tag">HTML/CSS</span>
-                        <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">Responsive Design</span>
+                        <span class="skill-tag" data-skill="Angular" data-level="80" data-cat="Frontend Development" data-desc="Full-featured frontend framework. Built complete web applications with routing and state management.">Angular</span>
+                        <span class="skill-tag" data-skill="TypeScript" data-level="85" data-cat="Frontend Development" data-desc="Typed JavaScript for scalable applications. Core language for Angular development.">TypeScript</span>
+                        <span class="skill-tag" data-skill="HTML/CSS" data-level="90" data-cat="Frontend Development" data-desc="Markup and styling fundamentals. Strong foundation in semantic HTML and modern CSS techniques.">HTML/CSS</span>
+                        <span class="skill-tag" data-skill="JavaScript" data-level="90" data-cat="Frontend Development" data-desc="Core web programming language. Proficient in ES6+, DOM manipulation, and async programming.">JavaScript</span>
+                        <span class="skill-tag" data-skill="Responsive Design" data-level="85" data-cat="Frontend Development" data-desc="Mobile-first design approach. Experience with flexbox, grid, and media queries.">Responsive Design</span>
                     </div>
                 </div>
                 <div class="skill-category reveal">
                     <div class="skill-icon">🔧</div>
                     <h3>Tools & Languages</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">Java</span>
-                        <span class="skill-tag">Git</span>
-                        <span class="skill-tag">GitHub</span>
-                        <span class="skill-tag">Jupyter</span>
-                        <span class="skill-tag">Data Structures</span>
+                        <span class="skill-tag" data-skill="Python" data-level="90" data-cat="Tools & Languages" data-desc="Primary language for AI/ML projects. Extensive experience with data processing and scripting.">Python</span>
+                        <span class="skill-tag" data-skill="Java" data-level="85" data-cat="Tools & Languages" data-desc="Object-oriented programming language. Used for data structures and algorithm implementations.">Java</span>
+                        <span class="skill-tag" data-skill="Git" data-level="85" data-cat="Tools & Languages" data-desc="Version control system. Proficient in branching, merging, and collaborative workflows.">Git</span>
+                        <span class="skill-tag" data-skill="GitHub" data-level="90" data-cat="Tools & Languages" data-desc="Code hosting and collaboration platform. Active profile with 12+ repositories.">GitHub</span>
+                        <span class="skill-tag" data-skill="Jupyter" data-level="85" data-cat="Tools & Languages" data-desc="Interactive notebook environment. Primary tool for ML experimentation and data analysis.">Jupyter</span>
+                        <span class="skill-tag" data-skill="Data Structures" data-level="90" data-cat="Tools & Languages" data-desc="Fundamental CS concepts. Implemented various structures in Java to help fellow students.">Data Structures</span>
                     </div>
                 </div>
             </div>
@@ -1126,6 +1270,32 @@
         <p>Designed & Built by <a href="https://github.com/Laithamr05">Laith Amro</a> • 2025</p>
     </footer>
 
+    <!-- Proficiency Modal -->
+    <div class="proficiency-modal" id="proficiencyModal">
+        <div class="proficiency-card">
+            <button class="proficiency-close" id="closeModal">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <h3 class="proficiency-title" id="modalSkillName">Skill Name</h3>
+            <p class="proficiency-category" id="modalCategory">Category</p>
+            <div class="proficiency-bar-container">
+                <div class="proficiency-bar" id="modalBar">
+                    <span class="proficiency-percent" id="modalPercent">0%</span>
+                </div>
+            </div>
+            <div class="proficiency-level">
+                <span>Beginner</span>
+                <span>Intermediate</span>
+                <span>Advanced</span>
+                <span>Expert</span>
+            </div>
+            <p class="proficiency-description" id="modalDesc">Description</p>
+        </div>
+    </div>
+
     <script>
         // Neural Network Background Animation
         const canvas = document.getElementById('neural-bg');
@@ -1260,6 +1430,52 @@
                 orb.style.transform = `translate(${mouseX * speed}px, ${mouseY * speed}px)`;
             });
         });
+
+        // Skill Proficiency Modal
+        const modal = document.getElementById('proficiencyModal');
+        const closeBtn = document.getElementById('closeModal');
+        const skillTags = document.querySelectorAll('.skill-tag');
+
+        skillTags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                const skill = tag.dataset.skill;
+                const level = tag.dataset.level;
+                const category = tag.dataset.cat;
+                const desc = tag.dataset.desc;
+
+                document.getElementById('modalSkillName').textContent = skill;
+                document.getElementById('modalCategory').textContent = category;
+                document.getElementById('modalDesc').textContent = desc;
+                document.getElementById('modalPercent').textContent = level + '%';
+
+                // Reset and animate bar
+                const bar = document.getElementById('modalBar');
+                bar.style.width = '0%';
+                
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+
+                // Animate bar after modal opens
+                setTimeout(() => {
+                    bar.style.width = level + '%';
+                }, 100);
+            });
+        });
+
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            document.getElementById('modalBar').style.width = '0%';
+        }
     </script>
 </body>
 </html>
