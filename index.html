@@ -382,16 +382,15 @@
         }
 
         .about-avatar {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            font-weight: 800;
             margin-bottom: 1.5rem;
+            object-fit: cover;
+            border: 4px solid transparent;
+            background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                        linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)) border-box;
+            box-shadow: 0 0 30px var(--glow-primary);
         }
 
         .about-name {
@@ -845,7 +844,7 @@
             <div class="about">
                 <div class="about-visual reveal">
                     <div class="about-card">
-                        <div class="about-avatar">LA</div>
+                        <img src="laith.jpg" alt="Laith Amro" class="about-avatar">
                         <h2 class="about-name">Laith Amro</h2>
                         <p class="about-role">// Software Developer</p>
                         <p class="about-location">
