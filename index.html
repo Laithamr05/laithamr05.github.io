@@ -183,24 +183,6 @@
             max-width: 900px;
         }
 
-        .hero-avatar {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin: 0 auto 2rem auto;
-            display: block;
-            border: 4px solid transparent;
-            background: linear-gradient(var(--bg-deep), var(--bg-deep)) padding-box,
-                        linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)) border-box;
-            box-shadow: 0 0 50px var(--glow-primary);
-            animation: fadeInUp 0.8s ease, avatarGlow 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes avatarGlow {
-            0% { box-shadow: 0 0 30px var(--glow-primary); }
-            100% { box-shadow: 0 0 60px var(--glow-primary), 0 0 100px var(--glow-secondary); }
-        }
 
         .hero-badge {
             display: inline-flex;
@@ -400,6 +382,18 @@
             background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
         }
 
+
+        .about-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border: 4px solid transparent;
+            background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                        linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)) border-box;
+            box-shadow: 0 0 30px var(--glow-primary);
+        }
 
         .about-name {
             font-size: 1.8rem;
@@ -955,7 +949,6 @@
     <main>
         <section class="hero" id="home">
             <div class="hero-content">
-                <img src="laith.jpg" alt="Laith Amro" class="hero-avatar">
                 <div class="hero-badge">
                     <span class="dot"></span>
                     Available for opportunities
@@ -997,6 +990,7 @@
             <div class="about">
                 <div class="about-visual reveal">
                     <div class="about-card">
+                        <img src="laith.jpg" alt="Laith Amro" class="about-avatar">
                         <h2 class="about-name">Laith Amro</h2>
                         <p class="about-role">// Software Developer</p>
                         <p class="about-location">
