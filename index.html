@@ -41,7 +41,6 @@
             line-height: 1.6;
         }
 
-        /* Neural Network Canvas Background */
         #neural-bg {
             position: fixed;
             top: 0;
@@ -52,7 +51,6 @@
             opacity: 0.4;
         }
 
-        /* Gradient Overlays */
         .gradient-orb {
             position: fixed;
             border-radius: 50%;
@@ -87,7 +85,6 @@
             66% { transform: translate(-20px, 20px) scale(0.95); }
         }
 
-        /* Navigation */
         nav {
             position: fixed;
             top: 0;
@@ -157,7 +154,6 @@
             width: 100%;
         }
 
-        /* Main Content */
         main {
             position: relative;
             z-index: 10;
@@ -169,7 +165,6 @@
             margin: 0 auto;
         }
 
-        /* Hero Section */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -289,7 +284,6 @@
             }
         }
 
-        /* Terminal Quote */
         .terminal-quote {
             margin-top: 4rem;
             padding: 1.5rem 2rem;
@@ -333,7 +327,6 @@
             color: var(--accent-primary);
         }
 
-        /* Section Headers */
         .section-header {
             text-align: center;
             margin-bottom: 4rem;
@@ -351,7 +344,6 @@
             font-weight: 700;
         }
 
-        /* About Section */
         .about {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -453,7 +445,6 @@
             margin-top: 0.25rem;
         }
 
-        /* Skills Section */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -520,7 +511,6 @@
             color: var(--bg-deep);
         }
 
-        /* Proficiency Modal */
         .proficiency-modal {
             position: fixed;
             top: 0;
@@ -656,7 +646,6 @@
             line-height: 1.6;
         }
 
-        /* Projects Section */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -776,7 +765,6 @@
             border-color: var(--accent-primary);
         }
 
-        /* Contact Section */
         .contact {
             text-align: center;
         }
@@ -856,7 +844,6 @@
             height: 24px;
         }
 
-        /* Footer */
         footer {
             text-align: center;
             padding: 3rem;
@@ -872,7 +859,6 @@
             text-decoration: none;
         }
 
-        /* Responsive */
         @media (max-width: 968px) {
             nav {
                 padding: 1rem 1.5rem;
@@ -918,7 +904,6 @@
             }
         }
 
-        /* Scroll animations */
         .reveal {
             opacity: 0;
             transform: translateY(50px);
@@ -1266,7 +1251,6 @@
         <p>Designed & Built by <a href="https://github.com/Laithamr05">Laith Amro</a> • 2025</p>
     </footer>
 
-    <!-- Proficiency Modal -->
     <div class="proficiency-modal" id="proficiencyModal">
         <div class="proficiency-card">
             <button class="proficiency-close" id="closeModal">
@@ -1293,7 +1277,6 @@
     </div>
 
     <script>
-        // Neural Network Background Animation
         const canvas = document.getElementById('neural-bg');
         const ctx = canvas.getContext('2d');
 
@@ -1324,7 +1307,6 @@
         function drawParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Draw connections
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
@@ -1343,7 +1325,6 @@
                 }
             }
 
-            // Draw and update particles
             particles.forEach(p => {
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
@@ -1364,7 +1345,6 @@
         resize();
         drawParticles();
 
-        // Scroll Reveal Animation
         function reveal() {
             const reveals = document.querySelectorAll('.reveal');
             
@@ -1380,9 +1360,8 @@
         }
 
         window.addEventListener('scroll', reveal);
-        reveal(); // Initial check
+        reveal();
 
-        // Smooth scroll for navigation with custom easing
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -1415,7 +1394,6 @@
             });
         });
 
-        // Parallax effect for gradient orbs
         document.addEventListener('mousemove', (e) => {
             const orbs = document.querySelectorAll('.gradient-orb');
             const mouseX = e.clientX / window.innerWidth - 0.5;
@@ -1427,7 +1405,6 @@
             });
         });
 
-        // Skill Proficiency Modal
         const modal = document.getElementById('proficiencyModal');
         const closeBtn = document.getElementById('closeModal');
         const skillTags = document.querySelectorAll('.skill-tag');
@@ -1444,14 +1421,12 @@
                 document.getElementById('modalDesc').textContent = desc;
                 document.getElementById('modalPercent').textContent = level + '%';
 
-                // Reset and animate bar
                 const bar = document.getElementById('modalBar');
                 bar.style.width = '0%';
                 
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
 
-                // Animate bar after modal opens
                 setTimeout(() => {
                     bar.style.width = level + '%';
                 }, 100);
@@ -1473,11 +1448,9 @@
             document.getElementById('modalBar').style.width = '0%';
         }
 
-        // Copy email to clipboard
         function copyEmail(event) {
             const email = 'amrlaith05@gmail.com';
             
-            // Try to copy to clipboard
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 event.preventDefault();
                 navigator.clipboard.writeText(email).then(() => {
@@ -1493,11 +1466,9 @@
                         btn.style.color = '';
                     }, 2000);
                 }).catch(() => {
-                    // Fallback: open mailto if clipboard fails
                     window.location.href = 'mailto:' + email;
                 });
             }
-            // If clipboard API not available, mailto will work normally
         }
     </script>
 </body>
