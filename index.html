@@ -858,7 +858,26 @@
         }
 
         #emailText {
-            transition: all 0.3s ease;
+            display: inline-block;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .contact-link.copied #emailText {
+            animation: textPop 0.5s ease;
+        }
+
+        @keyframes textPop {
+            0% {
+                opacity: 0;
+                transform: translateY(10px) scale(0.8);
+            }
+            50% {
+                transform: translateY(-5px) scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         footer {
@@ -1466,20 +1485,33 @@
         }
 
         function copyEmail(event) {
+            event.preventDefault();
             const email = 'amrlaith05@gmail.com';
+            const btn = event.currentTarget;
+            const emailText = document.getElementById('emailText');
             
             if (navigator.clipboard && navigator.clipboard.writeText) {
-                event.preventDefault();
                 navigator.clipboard.writeText(email).then(() => {
-                    const btn = event.currentTarget;
-                    const emailText = document.getElementById('emailText');
-                    
-                    btn.classList.add('copied');
-                    emailText.textContent = 'Copied to clipboard!';
+                    emailText.style.opacity = '0';
+                    emailText.style.transform = 'translateY(-10px)';
                     
                     setTimeout(() => {
-                        btn.classList.remove('copied');
-                        emailText.textContent = 'Email';
+                        emailText.textContent = 'Copied to clipboard!';
+                        btn.classList.add('copied');
+                        emailText.style.opacity = '1';
+                        emailText.style.transform = 'translateY(0)';
+                    }, 150);
+                    
+                    setTimeout(() => {
+                        emailText.style.opacity = '0';
+                        emailText.style.transform = 'translateY(-10px)';
+                        
+                        setTimeout(() => {
+                            emailText.textContent = 'Email';
+                            btn.classList.remove('copied');
+                            emailText.style.opacity = '1';
+                            emailText.style.transform = 'translateY(0)';
+                        }, 150);
                     }, 2000);
                 }).catch(() => {
                     window.location.href = 'mailto:' + email;
