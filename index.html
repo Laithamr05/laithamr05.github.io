@@ -784,6 +784,22 @@
             opacity: 1;
             transform: translateY(0);
         }
+        /* Add this to your main stylesheet or inside the <style> in index.html */
+.about-avatar {
+  width: 120px;          /* keep matching existing size or adjust */
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;      /* important so the image is clipped to the circle */
+  display: inline-block;
+}
+
+.about-avatar img,
+.about-avatar .about-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;     /* preserves cover/crop behavior */
+  display: block;
+}
     </style>
 </head>
 <body>
@@ -845,8 +861,9 @@
             <div class="about">
                 <div class="about-visual reveal">
                     <div class="about-card">
-                        <div class="about-avatar">LA</div>
-                        <h2 class="about-name">Laith Amro</h2>
+<div class="about-avatar">
+  <img src="assets/avatar.jpg" alt="Laith Amro" class="about-avatar-img">
+</div>                        <h2 class="about-name">Laith Amro</h2>
                         <p class="about-role">// Software Developer</p>
                         <p class="about-location">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
