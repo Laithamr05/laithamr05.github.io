@@ -385,16 +385,15 @@
         }
 
         .about-avatar {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            font-weight: 800;
+            object-fit: cover;
             margin-bottom: 1.5rem;
+            border: 4px solid transparent;
+            background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                        linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)) border-box;
+            box-shadow: 0 0 30px var(--glow-primary);
         }
 
         .about-name {
@@ -499,22 +498,6 @@
             gap: 0.5rem;
         }
 
-        .skill-tag {
-            padding: 0.5rem 1rem;
-            background: var(--bg-elevated);
-            border-radius: 8px;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            font-family: 'JetBrains Mono', monospace;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            display: inline-block;
-        }
-
-        .skill-tag:hover {
-            background: var(--accent-primary);
-            color: var(--bg-deep);
-        }
 
         /* Projects Section */
         .projects-grid {
@@ -715,6 +698,7 @@
         .contact-link svg {
             width: 24px;
             height: 24px;
+            transition: transform 0.3s ease;
         }
 
         /* Footer */
@@ -790,22 +774,199 @@
             opacity: 1;
             transform: translateY(0);
         }
-        /* Add this to your main stylesheet or inside the <style> in index.html */
-.about-avatar {
-  width: 120px;          /* keep matching existing size or adjust */
-  height: 120px;
-  border-radius: 50%;
-  overflow: hidden;      /* important so the image is clipped to the circle */
-  display: inline-block;
-}
 
-.about-avatar img,
-.about-avatar .about-avatar-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;     /* preserves cover/crop behavior */
-  display: block;
-}
+        .skill-tag {
+            padding: 0.5rem 1rem;
+            background: var(--bg-elevated);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .skill-tag:hover {
+            background: var(--accent-primary);
+            color: var(--bg-deep);
+            transform: translateY(-2px);
+        }
+
+        .skill-tag.active {
+            background: var(--accent-primary);
+            color: var(--bg-deep);
+        }
+
+        .proficiency-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 15, 0.9);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .proficiency-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .proficiency-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            transform: scale(0.8) translateY(20px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .proficiency-modal.active .proficiency-card {
+            transform: scale(1) translateY(0);
+        }
+
+        .proficiency-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: var(--bg-elevated);
+            border-radius: 50%;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .proficiency-close:hover {
+            background: var(--accent-tertiary);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .proficiency-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--accent-primary);
+        }
+
+        .proficiency-category {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .proficiency-bar-container {
+            background: var(--bg-elevated);
+            border-radius: 12px;
+            height: 24px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .proficiency-bar {
+            height: 100%;
+            border-radius: 12px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            width: 0%;
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+        }
+
+        .proficiency-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .proficiency-percent {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--bg-deep);
+            position: relative;
+            z-index: 1;
+        }
+
+        .proficiency-level {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .proficiency-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .contact-link.copied {
+            background: var(--accent-primary) !important;
+            color: var(--bg-deep) !important;
+            border-color: var(--accent-primary) !important;
+            transform: scale(1.05);
+            box-shadow: 0 0 30px var(--glow-primary);
+        }
+
+        .contact-link.copied svg {
+            transform: rotate(360deg) scale(1.1);
+        }
+
+        #emailText {
+            display: inline-block;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .contact-link.copied #emailText {
+            animation: textPop 0.5s ease;
+        }
+
+        @keyframes textPop {
+            0% {
+                opacity: 0;
+                transform: translateY(10px) scale(0.8);
+            }
+            50% {
+                transform: translateY(-5px) scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
     </style>
 </head>
 <body>
@@ -832,7 +993,7 @@
                 </div>
                 <h1>Hi, I'm <span class="gradient-text">Laith Amro</span></h1>
                 <p class="hero-subtitle">
-                    Computer Science student crafting intelligent systems with AI & modern web technologies. Turning complex problems into elegant solutions.
+                    Computer Science student at Birzeit University, passionate about data science and exploring AI/ML. Always learning and building.
                 </p>
                 <div class="hero-cta">
                     <a href="#projects" class="btn btn-primary">
@@ -857,7 +1018,7 @@
                         <span class="output">> CS Student @ Birzeit University 🇵🇸</span>
                     </div>
                     <div class="terminal-line">
-                        <span class="output">> AI/ML Enthusiast | Full-Stack Developer</span>
+                        <span class="output">> Data Science Enthusiast | Learning AI/ML</span>
                     </div>
                 </div>
             </div>
@@ -867,9 +1028,8 @@
             <div class="about">
                 <div class="about-visual reveal">
                     <div class="about-card">
-<div class="about-avatar">
-  <img src="laith.jpg" alt="Laith Amro" class="about-avatar-img">
-</div>                        <h2 class="about-name">Laith Amro</h2>
+                        <img src="laith.jpg" alt="Laith Amro" class="about-avatar">
+                        <h2 class="about-name">Laith Amro</h2>
                         <p class="about-role">// Software Developer</p>
                         <p class="about-location">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -881,25 +1041,25 @@
                     </div>
                 </div>
                 <div class="about-content reveal">
-                    <h3>Crafting the Future with Code</h3>
+                    <h3>About Me</h3>
                     <p>
-                        I'm a passionate Computer Science student at Birzeit University, deeply fascinated by the intersection of artificial intelligence and software engineering. My journey involves building intelligent systems that solve real-world problems.
+                        I'm a Computer Science undergraduate at Birzeit University with a passion for data science and AI/ML. I enjoy analyzing data, building models, and discovering insights through machine learning.
                     </p>
                     <p>
-                        From deep learning image classifiers to full-stack web applications, I love exploring the entire spectrum of software development. I believe in writing clean, maintainable code and continuously learning new technologies.
+                        I've completed <strong>2 Nanodegree programs</strong> in Full Stack Development and AI Programming, and participated in <strong>IEEE Xtreme</strong> programming competition. I'm always looking to learn new things and improve my skills.
                     </p>
                     <div class="stat-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">2</div>
+                            <div class="stat-label">Nanodegrees</div>
+                        </div>
                         <div class="stat-item">
                             <div class="stat-number">12+</div>
                             <div class="stat-label">Projects</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number">6+</div>
-                            <div class="stat-label">Technologies</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">∞</div>
-                            <div class="stat-label">Curiosity</div>
+                            <div class="stat-number">🧩</div>
+                            <div class="stat-label">Problem Solving</div>
                         </div>
                     </div>
                 </div>
@@ -916,47 +1076,60 @@
                     <div class="skill-icon">🧠</div>
                     <h3>AI & Machine Learning</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">PyTorch</span>
-                        <span class="skill-tag">TensorFlow</span>
-                        <span class="skill-tag">Keras</span>
-                        <span class="skill-tag">CNNs</span>
-                        <span class="skill-tag">Transfer Learning</span>
-                        <span class="skill-tag">Computer Vision</span>
+                        <span class="skill-tag" data-skill="PyTorch" data-level="55" data-cat="AI & Machine Learning" data-desc="Learning deep learning with PyTorch. Used for building CNN classifiers in Nanodegree projects.">PyTorch</span>
+                        <span class="skill-tag" data-skill="TensorFlow" data-level="50" data-cat="AI & Machine Learning" data-desc="Familiar with TensorFlow basics. Used in coursework and personal image classification projects.">TensorFlow</span>
+                        <span class="skill-tag" data-skill="Keras" data-level="60" data-cat="AI & Machine Learning" data-desc="Used Keras for building image classifiers. Comfortable with Sequential models and transfer learning.">Keras</span>
+                        <span class="skill-tag" data-skill="CNNs" data-level="55" data-cat="AI & Machine Learning" data-desc="Understanding of CNN architectures. Worked with pre-trained models like ResNet and VGG16.">CNNs</span>
+                        <span class="skill-tag" data-skill="Transfer Learning" data-level="60" data-cat="AI & Machine Learning" data-desc="Applied transfer learning in Nanodegree projects for image classification tasks.">Transfer Learning</span>
+                        <span class="skill-tag" data-skill="Computer Vision" data-level="50" data-cat="AI & Machine Learning" data-desc="Basic understanding of image processing. Built dog breed and flower classifiers.">Computer Vision</span>
                     </div>
                 </div>
                 <div class="skill-category reveal">
                     <div class="skill-icon">⚡</div>
                     <h3>Backend Development</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">Node.js</span>
-                        <span class="skill-tag">Express</span>
-                        <span class="skill-tag">PostgreSQL</span>
-                        <span class="skill-tag">REST APIs</span>
-                        <span class="skill-tag">JWT Auth</span>
-                        <span class="skill-tag">TypeScript</span>
+                        <span class="skill-tag" data-skill="Node.js" data-level="70" data-cat="Backend Development" data-desc="Comfortable with Node.js for building APIs. Used in Nanodegree and personal projects.">Node.js</span>
+                        <span class="skill-tag" data-skill="Express" data-level="70" data-cat="Backend Development" data-desc="Built REST APIs with Express. Familiar with routing and middleware.">Express</span>
+                        <span class="skill-tag" data-skill="MySQL" data-level="75" data-cat="Backend Development" data-desc="Proficient in MySQL database management. Comfortable with queries, joins, and database design.">MySQL</span>
+                        <span class="skill-tag" data-skill="MariaDB" data-level="70" data-cat="Backend Development" data-desc="Experience with MariaDB as MySQL alternative. Used in various projects.">MariaDB</span>
+                        <span class="skill-tag" data-skill="PostgreSQL" data-level="65" data-cat="Backend Development" data-desc="Used PostgreSQL in backend projects. Comfortable with basic queries and database design.">PostgreSQL</span>
+                        <span class="skill-tag" data-skill="REST APIs" data-level="70" data-cat="Backend Development" data-desc="Built several RESTful APIs in coursework and Nanodegree projects.">REST APIs</span>
+                        <span class="skill-tag" data-skill="JWT Auth" data-level="65" data-cat="Backend Development" data-desc="Implemented JWT authentication in storefront backend project.">JWT Auth</span>
+                        <span class="skill-tag" data-skill="TypeScript" data-level="65" data-cat="Backend Development" data-desc="Learning TypeScript. Used in Angular and Node.js projects.">TypeScript</span>
                     </div>
                 </div>
                 <div class="skill-category reveal">
                     <div class="skill-icon">🎨</div>
                     <h3>Frontend Development</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">Angular</span>
-                        <span class="skill-tag">TypeScript</span>
-                        <span class="skill-tag">HTML/CSS</span>
-                        <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">Responsive Design</span>
+                        <span class="skill-tag" data-skill="Angular" data-level="60" data-cat="Frontend Development" data-desc="Built a store application with Angular. Learning component-based architecture.">Angular</span>
+                        <span class="skill-tag" data-skill="TypeScript" data-level="65" data-cat="Frontend Development" data-desc="Used TypeScript with Angular. Getting comfortable with typed JavaScript.">TypeScript</span>
+                        <span class="skill-tag" data-skill="HTML/CSS" data-level="75" data-cat="Frontend Development" data-desc="Good foundation in HTML and CSS. Can build responsive layouts.">HTML/CSS</span>
+                        <span class="skill-tag" data-skill="JavaScript" data-level="70" data-cat="Frontend Development" data-desc="Comfortable with JavaScript fundamentals. Learning ES6+ features.">JavaScript</span>
+                        <span class="skill-tag" data-skill="Responsive Design" data-level="65" data-cat="Frontend Development" data-desc="Familiar with flexbox and media queries for responsive layouts.">Responsive Design</span>
+                    </div>
+                </div>
+                <div class="skill-category reveal">
+                    <div class="skill-icon">📊</div>
+                    <h3>Data Science</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag" data-skill="Data Analysis" data-level="65" data-cat="Data Science" data-desc="Analyzing datasets and extracting insights using Python and Jupyter notebooks.">Data Analysis</span>
+                        <span class="skill-tag" data-skill="Pandas" data-level="65" data-cat="Data Science" data-desc="Data manipulation and analysis library. Used for data cleaning and preprocessing.">Pandas</span>
+                        <span class="skill-tag" data-skill="NumPy" data-level="60" data-cat="Data Science" data-desc="Numerical computing with Python. Used for array operations and mathematical computations.">NumPy</span>
+                        <span class="skill-tag" data-skill="Matplotlib" data-level="60" data-cat="Data Science" data-desc="Data visualization library. Creating charts and graphs for data analysis.">Matplotlib</span>
+                        <span class="skill-tag" data-skill="Data Visualization" data-level="60" data-cat="Data Science" data-desc="Presenting data insights through visual representations.">Data Visualization</span>
                     </div>
                 </div>
                 <div class="skill-category reveal">
                     <div class="skill-icon">🔧</div>
                     <h3>Tools & Languages</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">Java</span>
-                        <span class="skill-tag">Git</span>
-                        <span class="skill-tag">GitHub</span>
-                        <span class="skill-tag">Jupyter</span>
-                        <span class="skill-tag">Data Structures</span>
+                        <span class="skill-tag" data-skill="Python" data-level="70" data-cat="Tools & Languages" data-desc="Main language for AI/ML and data science projects. Used extensively in Nanodegree.">Python</span>
+                        <span class="skill-tag" data-skill="Java" data-level="80" data-cat="Tools & Languages" data-desc="Proficient in Java from university courses. Strong OOP skills and implemented data structures.">Java</span>
+                        <span class="skill-tag" data-skill="Git" data-level="65" data-cat="Tools & Languages" data-desc="Comfortable with basic Git workflow - commit, push, pull, branches.">Git</span>
+                        <span class="skill-tag" data-skill="GitHub" data-level="70" data-cat="Tools & Languages" data-desc="Active GitHub profile with personal and course projects.">GitHub</span>
+                        <span class="skill-tag" data-skill="Jupyter" data-level="65" data-cat="Tools & Languages" data-desc="Used for ML and data science projects.">Jupyter</span>
+                        <span class="skill-tag" data-skill="Data Structures" data-level="80" data-cat="Tools & Languages" data-desc="Strong understanding from coursework. Created Java implementations to help fellow students.">Data Structures</span>
                     </div>
                 </div>
             </div>
@@ -1106,8 +1279,8 @@
         <section id="contact" class="contact">
             <div class="contact-card reveal">
                 <div class="contact-content">
-                    <h2>Let's Build Something <span class="gradient-text">Amazing</span></h2>
-                    <p>I'm always excited to connect with fellow developers, discuss new opportunities, or collaborate on interesting projects.</p>
+                    <h2>Let's <span class="gradient-text">Connect</span></h2>
+                    <p>Feel free to reach out if you'd like to collaborate on a project or just say hi!</p>
                     <div class="contact-links">
                         <a href="https://github.com/Laithamr05" target="_blank" class="contact-link">
                             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
@@ -1117,9 +1290,9 @@
                             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                             LinkedIn
                         </a>
-                        <a href="mailto:contact@laithamro.dev" class="contact-link">
+                        <a href="mailto:amrlaith05@gmail.com" class="contact-link" id="emailLink" onclick="copyEmail(event)">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                            Email
+                            <span id="emailText">Email</span>
                         </a>
                     </div>
                 </div>
@@ -1128,8 +1301,33 @@
     </main>
 
     <footer>
-        <p>Designed & Built by <a href="https://github.com/Laithamr05">Laith Amro</a> • 2024</p>
+        <p>Designed & Built by <a href="https://github.com/Laithamr05">Laith Amro</a> • 2025</p>
     </footer>
+
+    <div class="proficiency-modal" id="proficiencyModal">
+        <div class="proficiency-card">
+            <button class="proficiency-close" id="closeModal">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <h3 class="proficiency-title" id="modalSkillName">Skill Name</h3>
+            <p class="proficiency-category" id="modalCategory">Category</p>
+            <div class="proficiency-bar-container">
+                <div class="proficiency-bar" id="modalBar">
+                    <span class="proficiency-percent" id="modalPercent">0%</span>
+                </div>
+            </div>
+            <div class="proficiency-level">
+                <span>Beginner</span>
+                <span>Intermediate</span>
+                <span>Advanced</span>
+                <span>Expert</span>
+            </div>
+            <p class="proficiency-description" id="modalDesc">Description</p>
+        </div>
+    </div>
 
     <script>
         // Neural Network Background Animation
@@ -1225,13 +1423,31 @@
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                const href = anchor.getAttribute('href');
-                const target = document.querySelector(href);
+                const targetId = this.getAttribute('href');
+                const target = document.querySelector(targetId);
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+                    const startPosition = window.pageYOffset;
+                    const distance = targetPosition - startPosition;
+                    const duration = 1200;
+                    let start = null;
+
+                    function easeInOutCubic(t) {
+                        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+                    }
+
+                    function animation(currentTime) {
+                        if (start === null) start = currentTime;
+                        const timeElapsed = currentTime - start;
+                        const progress = Math.min(timeElapsed / duration, 1);
+                        const ease = easeInOutCubic(progress);
+                        window.scrollTo(0, startPosition + distance * ease);
+                        if (timeElapsed < duration) {
+                            requestAnimationFrame(animation);
+                        }
+                    }
+
+                    requestAnimationFrame(animation);
                 }
             });
         });
@@ -1247,6 +1463,88 @@
                 orb.style.transform = `translate(${mouseX * speed}px, ${mouseY * speed}px)`;
             });
         });
+
+        // Proficiency Modal
+        const modal = document.getElementById('proficiencyModal');
+        const closeBtn = document.getElementById('closeModal');
+        const skillTags = document.querySelectorAll('.skill-tag');
+
+        skillTags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                const skill = tag.dataset.skill;
+                const level = tag.dataset.level;
+                const category = tag.dataset.cat;
+                const desc = tag.dataset.desc;
+
+                document.getElementById('modalSkillName').textContent = skill;
+                document.getElementById('modalCategory').textContent = category;
+                document.getElementById('modalDesc').textContent = desc;
+                document.getElementById('modalPercent').textContent = level + '%';
+
+                const bar = document.getElementById('modalBar');
+                bar.style.width = '0%';
+                
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+
+                setTimeout(() => {
+                    bar.style.width = level + '%';
+                }, 100);
+            });
+        });
+
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            document.getElementById('modalBar').style.width = '0%';
+        }
+
+        // Email Copy Functionality
+        function copyEmail(event) {
+            event.preventDefault();
+            const email = 'amrlaith05@gmail.com';
+            const btn = event.currentTarget;
+            const emailText = document.getElementById('emailText');
+            
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(email).then(() => {
+                    emailText.style.opacity = '0';
+                    emailText.style.transform = 'translateY(-10px)';
+                    
+                    setTimeout(() => {
+                        emailText.textContent = 'Copied to clipboard!';
+                        btn.classList.add('copied');
+                        emailText.style.opacity = '1';
+                        emailText.style.transform = 'translateY(0)';
+                    }, 150);
+                    
+                    setTimeout(() => {
+                        emailText.style.opacity = '0';
+                        emailText.style.transform = 'translateY(-10px)';
+                        
+                        setTimeout(() => {
+                            emailText.textContent = 'Email';
+                            btn.classList.remove('copied');
+                            emailText.style.opacity = '1';
+                            emailText.style.transform = 'translateY(0)';
+                        }, 150);
+                    }, 2000);
+                }).catch(() => {
+                    window.location.href = 'mailto:' + email;
+                });
+            } else {
+                window.location.href = 'mailto:' + email;
+            }
+        }
     </script>
 </body>
 </html>
