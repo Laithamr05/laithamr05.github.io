@@ -52,6 +52,7 @@
             height: 100%;
             z-index: 0;
             opacity: 0.4;
+            pointer-events: none;
         }
 
         /* Gradient Overlays */
@@ -506,6 +507,8 @@
             color: var(--text-secondary);
             font-family: 'JetBrains Mono', monospace;
             transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
         }
 
         .skill-tag:hover {
@@ -659,6 +662,7 @@
             background: conic-gradient(from 0deg, transparent, var(--accent-primary), transparent, var(--accent-secondary), transparent);
             animation: rotate 10s linear infinite;
             opacity: 0.05;
+            pointer-events: none;
         }
 
         @keyframes rotate {
