@@ -864,10 +864,6 @@
                 grid-template-columns: 1fr;
             }
 
-            .github-stats-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
             .contact-card {
                 padding: 2rem;
             }
@@ -883,10 +879,6 @@
             }
 
             .skills-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .github-stats-container {
                 grid-template-columns: 1fr;
             }
 
@@ -1184,40 +1176,6 @@
             transform: translateX(3px);
         }
 
-        /* GitHub Stats */
-        .github-stats {
-            margin-top: 2rem;
-        }
-
-        .github-stats-container {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 20px;
-            padding: 2rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .github-stat-item {
-            text-align: center;
-        }
-
-        .github-stat-label {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .github-stat-value {
-            font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
 
 
     </style>
@@ -1631,29 +1589,6 @@
             </div>
         </section>
 
-        <section id="github-stats-section">
-            <div class="section-header reveal">
-                <p class="section-tag">// coding activity</p>
-                <h2 class="section-title">GitHub Statistics</h2>
-            </div>
-            <div class="github-stats reveal">
-                <div class="github-stats-container">
-                    <div class="github-stat-item">
-                        <div class="github-stat-label">Total Contributions</div>
-                        <div class="github-stat-value" id="totalContributions">-</div>
-                    </div>
-                    <div class="github-stat-item">
-                        <div class="github-stat-label">Repositories</div>
-                        <div class="github-stat-value" id="repoCount">-</div>
-                    </div>
-                    <div class="github-stat-item">
-                        <div class="github-stat-label">Stars Received</div>
-                        <div class="github-stat-value" id="starsCount">-</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section id="contact" class="contact">
             <div class="contact-card reveal">
                 <div class="contact-content">
@@ -1948,41 +1883,6 @@
                 });
             });
         });
-
-        // GitHub Stats (using GitHub API)
-        async function fetchGitHubStats() {
-            try {
-                const username = 'Laithamr05';
-                
-                // Fetch user data
-                const userResponse = await fetch(`https://api.github.com/users/${username}`);
-                const userData = await userResponse.json();
-                
-                // Fetch repos
-                const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`);
-                const reposData = await reposResponse.json();
-                
-                // Calculate total stars
-                const totalStars = reposData.reduce((sum, repo) => sum + repo.stargazers_count, 0);
-                
-                // Update DOM
-                document.getElementById('repoCount').textContent = userData.public_repos || reposData.length;
-                document.getElementById('starsCount').textContent = totalStars;
-                
-                // Fetch contribution count (this is approximate, actual API requires authentication)
-                // For now, we'll use a placeholder or try to get from contribution graph
-                document.getElementById('totalContributions').textContent = '365+';
-            } catch (error) {
-                console.log('GitHub API rate limit or error. Using fallback values.');
-                // Fallback values
-                document.getElementById('repoCount').textContent = '20+';
-                document.getElementById('starsCount').textContent = '50+';
-                document.getElementById('totalContributions').textContent = '365+';
-            }
-        }
-
-        // Load GitHub stats on page load
-        fetchGitHubStats();
 
         // Email handler - copies to clipboard on desktop, mailto on mobile
         function handleEmailClick(event) {
