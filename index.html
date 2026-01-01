@@ -1253,17 +1253,30 @@
             background-clip: text;
         }
 
-        .github-contribution-graph {
+
+        .github-contribution-tiles {
             margin-top: 2rem;
-            background: var(--bg-elevated);
-            border-radius: 12px;
-            padding: 1.5rem;
-            overflow-x: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
         }
 
-        .github-contribution-graph img {
+        .github-tile-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .github-tile-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 10px 30px rgba(0, 255, 170, 0.1);
+        }
+
+        .github-tile-card img {
             width: 100%;
-            max-width: 100%;
             height: auto;
             border-radius: 8px;
         }
@@ -1698,8 +1711,19 @@
                         <div class="github-stat-value" id="starsCount">-</div>
                     </div>
                 </div>
-                <div class="github-contribution-graph">
-                    <img src="https://github-readme-activity-graph.vercel.app/graph?username=Laithamr05&theme=react-dark&hide_border=true&area=true" alt="GitHub Contribution Graph" loading="lazy">
+                <div class="github-contribution-tiles">
+                    <div class="github-tile-card">
+                        <h4 style="color: var(--text-primary); margin-bottom: 1rem; font-size: 1.1rem;">Contribution Activity</h4>
+                        <img src="https://github-readme-streak-stats.demolab.com/?user=Laithamr05&theme=react-dark&hide_border=true&background=12121A00&ring=00FFAA&fire=00FFAA&currStreakLabel=00FFAA" alt="GitHub Streak Stats" loading="lazy">
+                    </div>
+                    <div class="github-tile-card">
+                        <h4 style="color: var(--text-primary); margin-bottom: 1rem; font-size: 1.1rem;">GitHub Stats</h4>
+                        <img src="https://github-readme-stats.vercel.app/api?username=Laithamr05&show_icons=true&theme=react-dark&hide_border=true&bg_color=12121A00&title_color=00FFAA&icon_color=7B61FF&text_color=FFFFFF&hide_title=false" alt="GitHub Stats" loading="lazy">
+                    </div>
+                    <div class="github-tile-card">
+                        <h4 style="color: var(--text-primary); margin-bottom: 1rem; font-size: 1.1rem;">Top Languages</h4>
+                        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Laithamr05&layout=compact&theme=react-dark&hide_border=true&bg_color=12121A00&title_color=00FFAA&text_color=FFFFFF" alt="Top Languages" loading="lazy">
+                    </div>
                 </div>
             </div>
         </section>
