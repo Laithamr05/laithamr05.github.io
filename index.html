@@ -1176,67 +1176,6 @@
             transform: translateX(3px);
         }
 
-        /* GitHub Stats Section */
-        #github-stats {
-            padding: 6rem 3rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .github-tiles-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .github-tile {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 20px;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .github-tile::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .github-tile:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-primary);
-            box-shadow: 0 20px 40px rgba(0, 255, 170, 0.1);
-        }
-
-        .github-tile:hover::before {
-            opacity: 1;
-        }
-
-        .github-tile img {
-            width: 100%;
-            height: auto;
-            border-radius: 12px;
-            display: block;
-        }
-
-        @media (max-width: 968px) {
-            #github-stats {
-                padding: 4rem 1.5rem;
-            }
-
-            .github-tiles-grid {
-                grid-template-columns: 1fr;
-            }
-        }
 
     </style>
 </head>
@@ -1252,7 +1191,6 @@
             <li><a href="#skills">Skills</a></li>
             <li><a href="#certifications">Certifications</a></li>
             <li><a href="#projects">Projects</a></li>
-            <li><a href="#github-stats">GitHub</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
         <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
@@ -1268,7 +1206,6 @@
             <li><a href="#skills" class="mobile-nav-link">Skills</a></li>
             <li><a href="#certifications" class="mobile-nav-link">Certifications</a></li>
             <li><a href="#projects" class="mobile-nav-link">Projects</a></li>
-            <li><a href="#github-stats" class="mobile-nav-link">GitHub</a></li>
             <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
         </ul>
     </div>
@@ -1652,21 +1589,6 @@
                     </div>
                 </div>
 
-            </div>
-        </section>
-
-        <section id="github-stats">
-            <div class="section-header reveal">
-                <p class="section-tag">// github activity</p>
-                <h2 class="section-title">GitHub Statistics</h2>
-            </div>
-            <div class="github-tiles-grid reveal">
-                <div class="github-tile">
-                    <img src="https://github-readme-stats.vercel.app/api?username=Laithamr05&show_icons=true&theme=dark&bg_color=0a0a0f&title_color=00ffaa&icon_color=7b61ff&text_color=ffffff&hide_border=true&border_radius=12" alt="GitHub Stats" loading="lazy">
-                </div>
-                <div class="github-tile">
-                    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Laithamr05&layout=compact&theme=dark&bg_color=0a0a0f&title_color=00ffaa&text_color=ffffff&hide_border=true&border_radius=12" alt="Top Languages" loading="lazy">
-                </div>
             </div>
         </section>
 
