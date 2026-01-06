@@ -16,7 +16,6 @@
             --bg-elevated: #141414;
             --accent-primary: #ffffff;
             --accent-secondary: #888888;
-            --accent-accent: #00d9ff;
             --text-primary: #ffffff;
             --text-secondary: #888888;
             --text-muted: #666666;
@@ -43,45 +42,6 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        @media (hover: hover) and (pointer: fine) {
-            body {
-                cursor: none;
-            }
-        }
-
-        /* Custom Cursor */
-        .custom-cursor {
-            width: 20px;
-            height: 20px;
-            border: 1px solid var(--accent-accent);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.1s ease, opacity 0.2s ease;
-            mix-blend-mode: difference;
-            opacity: 0;
-        }
-
-        .custom-cursor-dot {
-            width: 4px;
-            height: 4px;
-            background: var(--accent-accent);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.05s ease;
-            mix-blend-mode: difference;
-            opacity: 0;
-        }
-
-        @media (hover: hover) and (pointer: fine) {
-            .custom-cursor,
-            .custom-cursor-dot {
-                opacity: 1;
-            }
-        }
 
         /* Navigation */
         nav {
@@ -115,7 +75,7 @@
             left: 0;
             width: 0;
             height: 1px;
-            background: var(--accent-accent);
+            background: var(--text-primary);
             transition: width 0.3s ease;
         }
 
@@ -145,7 +105,7 @@
             left: 0;
             width: 0;
             height: 1px;
-            background: var(--accent-accent);
+            background: var(--text-primary);
             transition: width 0.3s ease;
         }
 
@@ -294,7 +254,7 @@
             left: 0;
             width: 100%;
             height: 2px;
-            background: var(--accent-accent);
+            background: var(--text-primary);
             opacity: 0.3;
             transform: scaleX(0);
             transform-origin: left;
@@ -351,7 +311,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: var(--accent-accent);
+            background: var(--text-secondary);
             transition: left 0.3s ease;
             z-index: 0;
         }
@@ -455,7 +415,7 @@
 
         .section-tag::before {
             content: '//';
-            color: var(--accent-accent);
+            color: var(--text-secondary);
             opacity: 0.5;
         }
 
@@ -550,7 +510,7 @@
             bottom: 0;
             width: 0;
             height: 1px;
-            background: var(--accent-accent);
+            background: var(--text-primary);
             transition: width 0.3s ease;
         }
 
@@ -598,7 +558,7 @@
             right: 0;
             width: 0;
             height: 1px;
-            background: var(--accent-accent);
+            background: var(--text-primary);
             transition: width 0.3s ease;
         }
 
@@ -691,7 +651,7 @@
             left: 0;
             width: 2px;
             height: 0;
-            background: var(--accent-accent);
+            background: var(--text-primary);
             transition: height 0.3s ease;
         }
 
@@ -788,7 +748,7 @@
             top: 0;
             width: 0;
             height: 100%;
-            background: var(--accent-accent);
+            background: var(--text-primary);
             opacity: 0.1;
             transition: width 0.3s ease;
         }
@@ -1224,8 +1184,6 @@
     </style>
 </head>
 <body>
-    <div class="custom-cursor"></div>
-    <div class="custom-cursor-dot"></div>
 
     <nav>
         <a href="#" class="logo">laith.dev</a>
@@ -1669,50 +1627,6 @@
     </div>
 
     <script>
-        // Custom Cursor
-        const cursor = document.querySelector('.custom-cursor');
-        const cursorDot = document.querySelector('.custom-cursor-dot');
-        
-        if (cursor && cursorDot) {
-            let mouseX = 0, mouseY = 0;
-            let cursorX = 0, cursorY = 0;
-            let dotX = 0, dotY = 0;
-            
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-            });
-            
-            function animateCursor() {
-                cursorX += (mouseX - cursorX) * 0.1;
-                cursorY += (mouseY - cursorY) * 0.1;
-                dotX += (mouseX - dotX) * 0.3;
-                dotY += (mouseY - dotY) * 0.3;
-                
-                cursor.style.left = cursorX + 'px';
-                cursor.style.top = cursorY + 'px';
-                cursorDot.style.left = dotX + 'px';
-                cursorDot.style.top = dotY + 'px';
-                
-                requestAnimationFrame(animateCursor);
-            }
-            
-            animateCursor();
-            
-            // Hover effects
-            const interactiveElements = document.querySelectorAll('a, button, .project-card, .skill-category, .cert-card');
-            interactiveElements.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursor.style.transform = 'scale(1.5)';
-                    cursorDot.style.transform = 'scale(1.5)';
-                });
-                el.addEventListener('mouseleave', () => {
-                    cursor.style.transform = 'scale(1)';
-                    cursorDot.style.transform = 'scale(1)';
-                });
-            });
-        }
-
         // Mobile Menu Toggle
         const mobileMenuToggle = document.getElementById('mobileMenuToggle');
         const mobileNav = document.getElementById('mobileNav');
