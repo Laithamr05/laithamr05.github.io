@@ -300,7 +300,7 @@
 
     .quick-metrics {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: 1fr;
       gap: 0.6rem;
     }
 
@@ -654,7 +654,7 @@
       <nav aria-label="Primary">
         <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mainNav">Menu</button>
         <ul id="mainNav">
-          <li><a href="#about">Profile</a></li>
+          <li><a href="#skills">Languages & Tools</a></li>
           <li><a href="#projects">Projects</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
@@ -686,36 +686,27 @@
             <strong id="repoCount">22</strong>
             <span>Public repos</span>
           </article>
-          <article class="metric">
-            <strong id="starsCount">0</strong>
-            <span>Total stars</span>
-          </article>
-          <article class="metric">
-            <strong id="topLang">TypeScript</strong>
-            <span>Top language</span>
-          </article>
         </div>
       </aside>
     </section>
 
-    <section id="about">
+    <section id="skills">
       <div class="section-head reveal">
-        <h2>Professional Profile</h2>
-        <p>I combine software engineering fundamentals with AI experimentation and ship complete portfolio-ready systems.</p>
+        <h2>Languages &amp; Tools</h2>
       </div>
 
       <div class="highlights">
         <article class="highlight-card reveal">
-          <h3>Execution Across the Stack</h3>
-          <p>From Flask and Node backends to React and Angular frontends, I deliver complete user-facing systems.</p>
+          <h3>Programming Languages</h3>
+          <p>Python, TypeScript, JavaScript, Java, C++, SQL.</p>
         </article>
         <article class="highlight-card reveal">
-          <h3>Applied AI Projects</h3>
-          <p>Built and evaluated classification pipelines in PyTorch and TensorFlow for real-world image tasks.</p>
+          <h3>Frameworks &amp; Libraries</h3>
+          <p>React, Angular, Flask, Node.js, Express, PyTorch, TensorFlow.</p>
         </article>
         <article class="highlight-card reveal">
-          <h3>Strong Engineering Habits</h3>
-          <p>Version control, API design, database thinking, and clean project documentation are core to how I work.</p>
+          <h3>Tools &amp; Platforms</h3>
+          <p>Git, GitHub, PostgreSQL, REST APIs, Linux, VS Code.</p>
         </article>
       </div>
     </section>
@@ -723,10 +714,6 @@
     <section id="projects">
       <div class="section-head reveal">
         <h2>GitHub Projects</h2>
-        <p>
-          Selected software and AI projects from
-          <a href="https://github.com/Laithamr05" target="_blank" rel="noopener noreferrer">github.com/Laithamr05</a>.
-        </p>
       </div>
 
       <div class="projects-grid" id="projectsGrid" aria-live="polite"></div>
@@ -888,21 +875,9 @@
     }
 
     function updateMetrics(repos) {
-      const totalStars = repos.reduce((sum, repo) => sum + (repo.stargazers_count || 0), 0);
-      const langCount = repos.reduce((acc, repo) => {
-        const lang = languageTag(repo);
-        acc[lang] = (acc[lang] || 0) + 1;
-        return acc;
-      }, {});
-
-      const topLangEntry = Object.entries(langCount).sort((a, b) => b[1] - a[1])[0];
       const repoCount = document.getElementById("repoCount");
-      const starsCount = document.getElementById("starsCount");
-      const topLang = document.getElementById("topLang");
 
       if (repoCount) repoCount.textContent = String(repos.length);
-      if (starsCount) starsCount.textContent = String(totalStars);
-      if (topLang) topLang.textContent = topLangEntry ? topLangEntry[0] : "TypeScript";
     }
 
     function createProjectCard(repo) {
